@@ -1,11 +1,8 @@
-# Travel Management System
+# Travel Agency System
 
 ## 📄 Project Description
 
-**Travel Management System** is a full-stack ride booking and management platform that connects Customers, Vehicle Owners, Drivers, and Admins under one unified system. The system provides seamless features for user registration, secure authentication using JWT, vehicle and driver management, booking operations, and admin-level analytics.
-
-This project is designed to offer scalable role-based functionality, real-time status updates, and optional features like notifications, invoices, and reviews, making it suitable for travel agencies or fleet operators.
-
+**This full-stack project is a vehicle booking platform that connects customers, vehicle owners, drivers, and admins. It includes features such as registration, authentication, vehicle management, booking, driver assignment, analytics, and more
 
 # ✅ Core Features Breakdown
 
