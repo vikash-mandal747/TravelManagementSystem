@@ -1,4 +1,5 @@
 # Travel Agency System
+### Travel Management System
 
 ## 📄 Project Description
 
@@ -95,3 +96,12 @@
 - Booking invoice generation (PDF)
 - Driver live location tracking (mock data)
 - Booking rating & review (customer → driver)
+
+## Suggested Folder Structure
+
+- /controllers
+- /models
+- /routes
+- /middlewares
+- /utils
+- /config 
