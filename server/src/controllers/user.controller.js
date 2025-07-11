@@ -56,7 +56,7 @@ const userLogin = async (req, res) => {
                     //will get result --> true -> right password
                     //result --> false --> wrong password
                     if (result) {
-                        const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRETKEY);
+                        const token = jwt.sign({ userId : user._id, role: user.role }, process.env.JWT_SECRETKEY);
                         res.status(200).json({ message: "Login Success!", token });
                     } else {
                         res.status(200).json({ message: "Wrong Password!" })

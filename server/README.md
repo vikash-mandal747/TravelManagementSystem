@@ -24,3 +24,4 @@ npm install
 | PORT           | < Number >                                              
 | MONGO_URI      | <Your local / Atlas MongoDB URI>           
 | JWT_SECRETKEY  | < Your Desired String >                                     
+
