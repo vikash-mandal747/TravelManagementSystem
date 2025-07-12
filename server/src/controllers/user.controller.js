@@ -56,7 +56,7 @@ const userLogin = async (req, res) => {
                     //will get result --> true -> right password
                     //result --> false --> wrong password
                     if (result) {
-                        const token = jwt.sign({ userId : user._id, role: user.role }, process.env.JWT_SECRETKEY);
+                        const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRETKEY);
                         res.status(200).json({ message: "Login Success!", token });
                     } else {
                         res.status(200).json({ message: "Wrong Password!" })
@@ -71,4 +71,23 @@ const userLogin = async (req, res) => {
 
 }
 
-module.exports = { userSignup, userLogin }
+
+
+//add driver Details
+const addDriverDetails = async (req, res) => {
+    try {
+        //license number, mobile, currentStatus, assignedVehicle
+        //userId from req.userId fromn authMiddleware
+        //find the user , if user found update driver details from req.body
+        let user = await userModel.findById(req.userId);
+        user.driverDetails = req.body;
+        await user.save();
+        res.status(201).json({ message: "Driver Details Updated" })
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" })
+    }
+
+}
+
+
+module.exports = { userSignup, userLogin, addDriverDetails }

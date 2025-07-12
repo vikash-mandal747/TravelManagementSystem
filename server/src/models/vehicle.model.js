@@ -10,8 +10,10 @@ const vehicleSchema = new mongoose.Schema({
     ventilation: { type: String, enum: ["AC", "Non-AC"] },
     farePerKm: { type: Number, required: true, min: 10 },
     isAvailable: { type: Boolean, default: true },
-    vehicleOwner: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    vehicleOwner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     //one to many relationship is maintained
+    driver: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+
 })
 
 const VehicleModel = mongoose.model("Vehicle", vehicleSchema);

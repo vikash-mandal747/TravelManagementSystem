@@ -1,12 +1,26 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/auth.middleware");
 const roleBasedAccesControl = require("../middlewares/roleBasedAcces.middleware");
-const addVehicle = require("../controllers/vehicle.controller");
+const { addVehicle, updateVehicle, getMyVehicle, deleteVehicle, assignDriver } = require("../controllers/vehicle.controller");
 
 const VehicleRouter = express.Router();
 
 //add vehicle, protected route and only vehicle owner should add 
-VehicleRouter.post("/add-vehicle", authMiddleware, roleBasedAccesControl(["owner"]),addVehicle)
+VehicleRouter.post("/add-vehicle", authMiddleware, roleBasedAccesControl(["owner"]), addVehicle)
+
+//update vehicle
+VehicleRouter.patch("/update-vehicle/:vehicleId", authMiddleware, roleBasedAccesControl(["owner"]), updateVehicle)
+
+//delete vehicle
+VehicleRouter.delete("/delete-vehicle/:vehicleId", authMiddleware, roleBasedAccesControl(["owner"]), deleteVehicle)
+
+
+//get all vehicle
+VehicleRouter.get("/my-vehicles", authMiddleware, roleBasedAccesControl(["owner", "admin"]), getMyVehicle)
+
+
+//assign driver by owner
+VehicleRouter.patch("/:vehicleId/assign-driver/:driverId", assignDriver)
 
 
 module.exports = VehicleRouter
