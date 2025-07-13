@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const accessLogStream = require("./middlewares/logger.middleware");
 const UserRouter = require("./routes/user.routes");
 const VehicleRouter = require("./routes/vehicle.routes");
+const TripRouter = require("./routes/trip.routes");
 const PORT = process.env.PORT || 5000
 
 connectToDB()
@@ -22,6 +23,8 @@ app.use("/users", UserRouter)
 //vehicle routes
 app.use("/vehicle", VehicleRouter)
 
+//trip router
+app.use("/trips", TripRouter)
 
 //test route
 app.get("/test", (req, res) => {
