@@ -1,0 +1,222 @@
+[
+    {
+        "name": "Alice",
+        "email": "alice@example.com",
+        "password": "hashed_password_here",
+        "role": "owner",
+        "gender": "male"
+    },
+    {
+        "name": "Fatima Khan",
+        "email": "fatima.owner@example.com",
+        "password": "hashed_password_here",
+        "role": "owner",
+        "gender": "female"
+    },
+    {
+        "name": "Ravi Patel",
+        "email": "ravi.owner@example.com",
+        "password": "hashed_password_here",
+        "role": "owner",
+        "gender": "male"
+    },
+    {
+        "name": "Arjun Singh",
+        "email": "arjun.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "male",
+        "driverDetails": {
+            "license_number": "DL‑120001",
+            "mobile": "9876500001",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Priya Verma",
+        "email": "priya.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "female",
+        "driverDetails": {
+            "license_number": "DL‑120002",
+            "mobile": "9876500002",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Abdul Rahman",
+        "email": "abdul.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "male",
+        "driverDetails": {
+            "license_number": "DL‑120003",
+            "mobile": "9876500003",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Kavita Joshi",
+        "email": "kavita.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "female",
+        "driverDetails": {
+            "license_number": "DL‑120004",
+            "mobile": "9876500004",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Vikram Mehta",
+        "email": "vikram.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "male",
+        "driverDetails": {
+            "license_number": "DL‑120005",
+            "mobile": "9876500005",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Sunita Rao",
+        "email": "sunita.driver@example.com",
+        "password": "hashed_password_here",
+        "role": "driver",
+        "gender": "female",
+        "driverDetails": {
+            "license_number": "DL‑120006",
+            "mobile": "9876500006",
+            "isAvailable": true
+        }
+    },
+    {
+        "name": "Bhavna Sharma",
+        "email": "bhavna.customer@example.com",
+        "password": "hashed_password_here",
+        "role": "customer",
+        "gender": "female"
+    },
+    {
+        "name": "Deepak Nair",
+        "email": "deepak.customer@example.com",
+        "password": "hashed_password_here",
+        "role": "customer",
+        "gender": "male"
+    },
+    {
+        "name": "Meera Gupta",
+        "email": "meera.customer@example.com",
+        "password": "hashed_password_here",
+        "role": "customer",
+        "gender": "female"
+    },
+    [
+        {
+            "model": "Toyota Innova Crysta",
+            "type": "MPV",
+            "registration_number": "MH12DE1432",
+            "seat_count": 7,
+            "ventilation": "AC",
+            "farePerKm": 14
+        },
+        {
+            "model": "Mahindra Scorpio N",
+            "type": "SUV",
+            "registration_number": "DL01CD8765",
+            "seat_count": 7,
+            "ventilation": "AC",
+            "farePerKm": 15
+        },
+        {
+            "model": "Maruti Suzuki Ertiga",
+            "type": "MPV",
+            "registration_number": "UP32GH2345",
+            "seat_count": 6,
+            "ventilation": "AC",
+            "farePerKm": 13
+        },
+        {
+            "model": "Hyundai Venue",
+            "type": "Compact SUV",
+            "registration_number": "KA03JK7890",
+            "seat_count": 5,
+            "ventilation": "AC",
+            "farePerKm": 12
+        },
+        {
+            "model": "Tata Safari",
+            "type": "SUV",
+            "registration_number": "GJ05LM4567",
+            "seat_count": 7,
+            "ventilation": "AC",
+            "farePerKm": 16
+        },
+        {
+            "model": "Kia Carens",
+            "type": "MPV",
+            "registration_number": "TN09OP6789",
+            "seat_count": 7,
+            "ventilation": "AC",
+            "farePerKm": 14
+        }
+    ],
+    [
+        {
+            "from": "Mumbai",
+            "to": "Pune",
+            "totalDistance": 150,
+            "noOfPassengers": 5,
+            "startDate": "2025-07-20T09:00:00.000Z",
+            "endDate": "2025-07-22T18:00:00.000Z",
+            "vehicle": "<vehicleId1>"
+        },
+        {
+            "from": "Delhi",
+            "to": "Jaipur",
+            "totalDistance": 220,
+            "noOfPassengers": 6,
+            "startDate": "2025-07-25T06:00:00.000Z",
+            "endDate": "2025-07-26T20:00:00.000Z",
+            "vehicle": "<vehicleId2>"
+        },
+        {
+            "from": "Lucknow",
+            "to": "Kanpur",
+            "totalDistance": 80,
+            "noOfPassengers": 4,
+            "startDate": "2025-07-18T08:00:00.000Z",
+            "endDate": "2025-07-18T14:00:00.000Z",
+            "vehicle": "<vehicleId3>"
+        },
+        {
+            "from": "Bengaluru",
+            "to": "Mysuru",
+            "totalDistance": 60,
+            "noOfPassengers": 3,
+            "startDate": "2025-07-16T07:30:00.000Z",
+            "endDate": "2025-07-16T12:00:00.000Z",
+            "vehicle": "<vehicleId4>"
+        },
+        {
+            "from": "Ahmedabad",
+            "to": "Udaipur",
+            "totalDistance": 300,
+            "noOfPassengers": 7,
+            "startDate": "2025-08-01T05:00:00.000Z",
+            "endDate": "2025-08-05T20:00:00.000Z",
+            "vehicle": "<vehicleId5>"
+        },
+        {
+            "from": "Chennai",
+            "to": "Pondicherry",
+            "totalDistance": 180,
+            "noOfPassengers": 5,
+            "startDate": "2025-07-30T06:00:00.000Z",
+            "endDate": "2025-08-01T15:00:00.000Z",
+            "vehicle": "<vehicleId6>"
+        }
+    ]
+]

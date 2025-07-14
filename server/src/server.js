@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
+var cors = require('cors')
 const connectToDB = require("./config/mongodb.config");
 const morgan = require('morgan');
 const accessLogStream = require("./middlewares/logger.middleware");
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 5000
 connectToDB()
 const app = express();
 app.use(express.json());
+
+app.use(cors())
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }))

@@ -10,7 +10,7 @@ const addVehicle = async (req, res) => {
         let vehicle = await VehicleModel.create({ ...req.body, vehicleOwner: req.userId });
         res.status(201).json({ message: "Vehicle created", data: vehicle })
     } catch (error) {
-        res.status(500).json({ message: "something went wrong" })
+        res.status(500).json({ message: "something went wrong", Error:error.message })
     }
 }
 

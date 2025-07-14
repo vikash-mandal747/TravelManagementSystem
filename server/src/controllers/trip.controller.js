@@ -12,7 +12,7 @@ const createTrip = async (req, res) => {
         await vehicle.save();
         let trip = await TripModel.create({ ...req.body, customer: req.userId })
         res.status(201).json({ message: "Trip Added", data: trip });
-    } catch (error) {
+     } catch (error) {
         res.status(500).json({ message: "something went wrong", Error: error.message });
     }
 }
@@ -40,7 +40,8 @@ const endTrip = async (req, res) => {
         const trip = await TripModel.findById(tripId).populate("vehicle");
         trip.isCompleted = true;
         trip.totalFare = trip.totalDistance * trip.vehicle.farePerKm;
-        // make vehicle isAvailable true and also release driver
+        //Data consistency / cascading
+        // make vehicle isAvailable true and also release driver(which is optional)
         console.log(trip);
         trip.vehicle.isAvailable = true;
         await trip.save();
