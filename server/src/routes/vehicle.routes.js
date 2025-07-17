@@ -1,7 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/auth.middleware");
 const roleBasedAccesControl = require("../middlewares/roleBasedAcces.middleware");
-const { addVehicle, updateVehicle, getMyVehicle, deleteVehicle, assignDriver } = require("../controllers/vehicle.controller");
+const { addVehicle, updateVehicle, getMyVehicle, deleteVehicle, assignDriver, getAvailableVehicles } = require("../controllers/vehicle.controller");
 
 const VehicleRouter = express.Router();
 
@@ -18,6 +18,8 @@ VehicleRouter.delete("/delete-vehicle/:vehicleId", authMiddleware, roleBasedAcce
 //get all vehicle
 VehicleRouter.get("/my-vehicles", authMiddleware, roleBasedAccesControl(["owner", "admin"]), getMyVehicle)
 
+
+VehicleRouter.get("/available", getAvailableVehicles);
 
 //assign driver by owner
 VehicleRouter.patch("/:vehicleId/assign-driver/:driverId", assignDriver)

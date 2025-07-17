@@ -10,7 +10,7 @@ const addVehicle = async (req, res) => {
         let vehicle = await VehicleModel.create({ ...req.body, vehicleOwner: req.userId });
         res.status(201).json({ message: "Vehicle created", data: vehicle })
     } catch (error) {
-        res.status(500).json({ message: "something went wrong", Error:error.message })
+        res.status(500).json({ message: "something went wrong", Error: error.message })
     }
 }
 
@@ -56,6 +56,16 @@ const getMyVehicle = async (req, res) => {
     }
 }
 
+// controllers/vehicle.controller.js
+const getAvailableVehicles = async (req, res) => {
+    try {
+        const list = await VehicleModel.find({ isAvailable: true }).select("_id model seat_count");
+        res.status(200).json({ data: list });
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+};
+
 
 
 const assignDriver = async (req, res) => {
@@ -85,4 +95,4 @@ const assignDriver = async (req, res) => {
 }
 
 
-module.exports = { addVehicle, updateVehicle, getMyVehicle, deleteVehicle, assignDriver };
+module.exports = { addVehicle, updateVehicle, getMyVehicle, getAvailableVehicles, deleteVehicle, assignDriver };
