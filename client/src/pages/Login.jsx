@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth } from "../auth/AuthProvider";
 
@@ -57,7 +57,9 @@ export default function Login() {
 
         <p className="text-sm mt-4 text-center">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-500 hover:underline">Sign up</Link>
+          <a href="/signup" className="text-blue-500 hover:underline">
+            Sign up
+          </a>
         </p>
       </form>
     </div>

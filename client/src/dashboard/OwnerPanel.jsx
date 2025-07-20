@@ -1,9 +1,10 @@
-import React  from 'react'
-import { useEffect, useState } from "react";
+// Same imports as before
+import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 
 export default function OwnerPanel() {
   const [vehicles, setVehicles] = useState([]);
+  const [drivers, setDrivers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(initialForm());
@@ -16,6 +17,7 @@ export default function OwnerPanel() {
       seat_count: 4,
       ventilation: "AC",
       farePerKm: 10,
+      driverId: "",
     };
   }
 
@@ -28,8 +30,18 @@ export default function OwnerPanel() {
     }
   };
 
+  const fetchDrivers = async () => {
+    try {
+      const res = await api.get("/users/available-drivers");
+      setDrivers(res.data.drivers || []);
+    } catch (err) {
+      console.error("Error fetching drivers", err);
+    }
+  };
+
   useEffect(() => {
     fetchVehicles();
+    fetchDrivers();
   }, []);
 
   const openAdd = () => {
@@ -47,6 +59,7 @@ export default function OwnerPanel() {
       seat_count: v.seat_count,
       ventilation: v.ventilation,
       farePerKm: v.farePerKm,
+      driverId: v.driver?._id || "",
     });
     setModalOpen(true);
   };
@@ -57,13 +70,28 @@ export default function OwnerPanel() {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
+      let vehicleId;
+
       if (editing) {
         await api.patch(`/vehicle/update-vehicle/${editing._id}`, form);
+        vehicleId = editing._id;
       } else {
-        await api.post("/vehicle/add-vehicle", form);
+        const res = await api.post("/vehicle/add-vehicle", {
+          ...form,
+          driverId: undefined,
+        });
+        vehicleId = res.data.data._id;
       }
+
+      if (form.driverId && vehicleId) {
+        await api.patch(
+          `/vehicle/${vehicleId}/assign-driver/${form.driverId}`
+        );
+      }
+
       setModalOpen(false);
-      fetchVehicles();
+      await fetchVehicles();
+      await fetchDrivers();
     } catch (err) {
       alert(err.response?.data?.message || "Operation failed");
     }
@@ -81,7 +109,6 @@ export default function OwnerPanel() {
 
   return (
     <div className="p-6">
-      {/* header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold tracking-tight">My Vehicles</h1>
         <button
@@ -92,17 +119,24 @@ export default function OwnerPanel() {
         </button>
       </div>
 
-      {/* vehicle list */}
       <ul className="space-y-3">
         {vehicles.map((v) => (
           <li
             key={v._id}
             className="bg-white/90 backdrop-blur border rounded-xl p-4 flex justify-between items-center shadow-sm"
           >
-            <span className="font-medium">
-              {v.model} • {v.registration_number} •{" "}
-              {v.isAvailable ? "Available" : "Busy"}
-            </span>
+            <div>
+              <span className="font-medium">
+                {v.model} • {v.registration_number} •{" "}
+                {v.isAvailable ? "Available" : "Busy"}
+              </span>
+              <p className="text-sm text-gray-500 mt-1">
+                Assigned to:{" "}
+                {v.driver
+                  ? `${v.driver.name} (${v.driver.driverDetails?.license_number})`
+                  : "No driver assigned"}
+              </p>
+            </div>
 
             <div className="space-x-2 text-sm">
               <button
@@ -125,7 +159,6 @@ export default function OwnerPanel() {
         )}
       </ul>
 
-      {/* modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <form
@@ -136,23 +169,11 @@ export default function OwnerPanel() {
               {editing ? "Edit Vehicle" : "Add Vehicle"}
             </h2>
 
-            {/* inputs */}
-            {[
-              { name: "model", label: "Model" },
+            {/* Inputs */}
+            {[{ name: "model", label: "Model" },
               { name: "registration_number", label: "Registration No." },
-              {
-                name: "seat_count",
-                label: "Seat Count",
-                type: "number",
-                min: 4,
-                max: 56,
-              },
-              {
-                name: "farePerKm",
-                label: "Fare per Km (₹)",
-                type: "number",
-                min: 1,
-              },
+              { name: "seat_count", label: "Seat Count", type: "number", min: 4, max: 56 },
+              { name: "farePerKm", label: "Fare per Km (₹)", type: "number", min: 1 },
             ].map((f) => (
               <input
                 key={f.name}
@@ -186,7 +207,20 @@ export default function OwnerPanel() {
               <option value="Non-AC">Non‑AC</option>
             </select>
 
-            {/* actions */}
+            <select
+              name="driverId"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              value={form.driverId}
+              onChange={handleChange}
+            >
+              <option value="">Select a driver</option>
+              {drivers.map((driver) => (
+                <option key={driver._id} value={driver._id}>
+                  {driver.name} ({driver.driverDetails?.license_number})
+                </option>
+              ))}
+            </select>
+
             <div className="flex justify-end space-x-3 pt-2">
               <button
                 type="button"

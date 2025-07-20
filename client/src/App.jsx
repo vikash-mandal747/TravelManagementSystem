@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthProvider";
 import Layout from "./layout/Layout";
 import Login from "./pages/Login";
@@ -12,7 +12,7 @@ import PrivateRoute from "./auth/PrivateRoute"; // same helper as before
 export default function App() {
   return (
     <AuthProvider>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           {/* Public pages that shouldn’t show the nav bar */}
           <Route path="/login" element={<Login />} />
@@ -46,7 +46,7 @@ export default function App() {
             />
           </Route>
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
