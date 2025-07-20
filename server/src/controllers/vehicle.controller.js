@@ -29,27 +29,41 @@ const updateVehicle = async (req, res) => {
 
 //Delete Vehicle
 const deleteVehicle = async (req, res) => {
-    try {
-        const { vehicleId } = req.params;
+  try {
+    const { vehicleId } = req.params;
 
-        // optional: make sure the vehicle exists
-        const removed = await VehicleModel.findByIdAndDelete(vehicleId);
+    // Step 1: Find the vehicle to get assigned driver
+    const vehicle = await VehicleModel.findById(vehicleId);
 
-        if (!removed) {
-            return res.status(404).json({ message: "Vehicle not found" });
-        }
-        res.json({ message: "Vehicle deleted successfully" });
-    } catch (err) {
-        res.status(500).json({ message: "Something went wrong", error: err.message });
+    if (!vehicle) {
+      return res.status(404).json({ message: "Vehicle not found" });
     }
+
+    const assignedDriverId = vehicle.driver; // Might be null if not assigned
+
+    // Step 2: Delete the vehicle
+    await VehicleModel.findByIdAndDelete(vehicleId);
+
+    // Step 3: If a driver was assigned, mark them as available
+    if (assignedDriverId) {
+      await userModel.findByIdAndUpdate(assignedDriverId, {
+        isAvailable: true,
+      });
+    }
+
+    res.json({ message: "Vehicle deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Something went wrong", error: err.message });
+  }
 };
+
 
 
 
 //get vehicle
 const getMyVehicle = async (req, res) => {
     try {
-        let vehicleList = await VehicleModel.find({ vehicleOwner: req.userId });
+        let vehicleList = await VehicleModel.find({ vehicleOwner: req.userId }).populate("driver", "name driverDetails.license_number"); // Only include name and email of driver
         res.status(200).json({ message: "Vehicle List", data: vehicleList })
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" })
@@ -89,7 +103,7 @@ const assignDriver = async (req, res) => {
             res.status(404).json({ message: "Either Driver or Vehicle Not Availabe" });
         }
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" });
+        res.status(500).json({ message: "Something went wrong..." });
     }
 
 }

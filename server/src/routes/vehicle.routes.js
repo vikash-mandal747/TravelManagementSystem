@@ -22,7 +22,7 @@ VehicleRouter.get("/my-vehicles", authMiddleware, roleBasedAccesControl(["owner"
 VehicleRouter.get("/available", getAvailableVehicles);
 
 //assign driver by owner
-VehicleRouter.patch("/:vehicleId/assign-driver/:driverId", assignDriver)
+VehicleRouter.patch("/:vehicleId/assign-driver/:driverId", authMiddleware, roleBasedAccesControl(["owner"]), assignDriver)
 
 
 module.exports = VehicleRouter

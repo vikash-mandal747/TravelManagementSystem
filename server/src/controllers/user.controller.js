@@ -90,4 +90,17 @@ const addDriverDetails = async (req, res) => {
 }
 
 
-module.exports = { userSignup, userLogin, addDriverDetails }
+const getAvailableDrivers = async (req, res) => {
+    try {
+        const drivers = await userModel.find({
+            role: "driver",
+            "driverDetails.isAvailable": true
+        }).select("-password"); // Don't send password hash
+        res.status(200).json({ drivers });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to fetch drivers", error: err.message });
+    }
+};
+
+
+module.exports = { userSignup, userLogin, addDriverDetails, getAvailableDrivers }
