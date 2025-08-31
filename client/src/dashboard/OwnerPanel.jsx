@@ -34,6 +34,8 @@ export default function OwnerPanel() {
     try {
       const res = await api.get("/users/available-drivers");
       setDrivers(res.data.drivers || []);
+      console.log(res.data);
+      
     } catch (err) {
       console.error("Error fetching drivers", err);
     }
@@ -44,7 +46,7 @@ export default function OwnerPanel() {
     fetchDrivers();
   }, []);
 
-  const openAdd = () => {
+  const openAdd = () =>  {
     setEditing(null);
     setForm(initialForm());
     setModalOpen(true);
@@ -106,7 +108,7 @@ export default function OwnerPanel() {
       alert("Delete failed.");
     }
   };
-
+  
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
